@@ -32,7 +32,7 @@ For each of the following functionalities, please tick the box if you implemente
 [x] Brew coffee \
 [x] Create database \
 [x] Migrate Schema \
-[x] Add controler
+[x] Add controler \
 [x] Add Routes
 
 ##### Business rules
@@ -43,12 +43,12 @@ Please highlight all the validations and mechanisms you identified as necessary 
 
 Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
 
-composer require friendsofsymfony/rest-bundle --for REST
-composer require sensio/framework-extra-bundle
-composer requirejms/serializer-bundle -- serialize and deserialize resources of the application
-composer requiresymfony/validator -- for data validation
-composer requiresymfony/form --handle incoming user data and convert it into a resource entity
-composer requiresymfony/orm-pack--for working with DB in OOP language
+- composer require friendsofsymfony/rest-bundle --for REST
+- composer require sensio/framework-extra-bundle
+- composer requirejms/serializer-bundle -- serialize and deserialize resources of the application
+- composer requiresymfony/validator -- for data validation
+- composer requiresymfony/form --handle incoming user data and convert it into a resource entity
+- composer requiresymfony/orm-pack--for working with DB in OOP language
 
 ##### Environment
 
@@ -65,9 +65,9 @@ Please fill in the following table with the technologies you used in order to wo
 
 In this section, please list the steps and/ or tools you've used in order to test the behaviour of your solution.
 
-Postman for testing Routes
-/api/users-get allusers
-/api/user-post user
+- Postman for testing Routes
+  /api/users-get allusers
+  /api/user-post user
 
 ## Feedback
 
