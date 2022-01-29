@@ -8,10 +8,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotNull;
-use App\Entity\User;
+use App\Entity\Room;
 
 
-class UserType extends AbstractType
+class RoomType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,7 +20,7 @@ class UserType extends AbstractType
                 'constraints' => [
                     new NotNull(),
                 ]])
-            ->add('status', TextType::class, [
+            ->add('program', TextType::class, [
                 'constraints' => [
                     new NotNull(),
                 ]])
@@ -29,6 +29,6 @@ class UserType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => User::class, 'csrf_protection' => false));
+        $resolver->setDefaults(array('data_class' => Room::class, 'csrf_protection' => false));
     }
 }
