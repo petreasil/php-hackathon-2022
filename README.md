@@ -43,6 +43,13 @@ Please highlight all the validations and mechanisms you identified as necessary 
 
 Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
 
+composer require friendsofsymfony/rest-bundle --for REST
+composer require sensio/framework-extra-bundle
+composer requirejms/serializer-bundle -- serialize and deserialize resources of the application
+composer requiresymfony/validator -- for data validation
+composer requiresymfony/form --handle incoming user data and convert it into a resource entity
+composer requiresymfony/orm-pack--for working with DB in OOP language
+
 ##### Environment
 
 Please fill in the following table with the technologies you used in order to work at your application. Feel free to add more rows if you want us to know about anything else you used.

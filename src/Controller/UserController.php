@@ -2,20 +2,20 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\User;
+use App\Form\UserType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 
-/**
- * @Route("/api", name="api_")
- */
-class UserController extends AbstractController
+
+class UserController extends AbstractFOSRestController 
 {
     /**
-     * @Route("/users", name="get_all_users"), methods={"GET"})
+     * @Route("/api/users", name="get_all_users"), methods={"GET"})
      */
     public function index(ManagerRegistry $doctrine): Response
     {
@@ -29,25 +29,35 @@ class UserController extends AbstractController
                 'status' => $d->getStatus()
             ];
         }
+        $view = $this->view($res, 200);
 
-        return $this->json($res);
+        return $this->handleView($view);
+        //$this->json($res, 200, ["Content-Type" => "application/json"]);
     }
 
     /**
-     * @Route("/user", name="new_user", methods={"POST"})
+     * @Route("/api/user", name="new_user", methods={"POST"})
      */
     public function new(Request $request, ManagerRegistry $doctrine): Response
     {
-        $parameter = json_decode($request->getContent(), true);
-        $entityManager = $doctrine->getManager();
-
         $user = new User();
-        $user->setName($parameter['name']);
-        $user->setStatus($parameter['status']);
+        $form= $this->createForm(UserType::class, $user);
+        $parameter = json_decode($request->getContent(), true);
+        //$user->setName($parameter['name']);
+        //$user->setStatus($parameter['status']);
 
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $form->submit($parameter);
+        
+        if($form->isSubmitted() && $form->isValid())
+        {   
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->handleView($this->view(['status'=>'ok'],Response::HTTP_CREATED));
+        }
 
-        return $this->json('Created new user successfully with id ' . $user->getId());
+        return $this->handleView($this->view($form->getErrors()));
+
+        
     }
 }
