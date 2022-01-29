@@ -65,4 +65,28 @@ class ReservationController extends AbstractFOSRestController
 
         return $this->handleView($this->view($form->getErrors()));
     }
+
+    /**
+     * @Route("/api/users/{userId}/reservation/{reservationId}", name="delete_reservation", methods={"DELETE"})
+     */
+    public function deleteOption(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $userId = $request->get('userId');
+        $reservationId = $request->get('reservationId');
+
+        $reservation = $doctrine->getRepository(Reservation::class)->findOneBy([
+            'id' => $reservationId,
+            'user' => $userId
+        ]);
+
+        if (!$reservation) {
+            throw new NotFoundHttpException('Reservation does not exist!!!');
+        }
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($reservation);
+        $entityManager->flush();
+
+
+        return new Response('Record  ' . $reservation . ' was deleted ', Response::HTTP_OK);
+    }
 }

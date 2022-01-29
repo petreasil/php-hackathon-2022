@@ -27,6 +27,7 @@ class ReservationType extends AbstractType
             ])
             ->add('room', EntityType::class, [
                 'class' => Room::class,
+                'multiple' => true,
                 'constraints' => [
                     new NotNull(),
                 ]
