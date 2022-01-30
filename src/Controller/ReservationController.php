@@ -67,6 +67,45 @@ class ReservationController extends AbstractFOSRestController
     }
 
     /**
+     * @Route("/api/users/update/{userId}/reservation", name="update_reservation", methods={"PATCH"})
+     */
+    public function updateOption(Request $request, ManagerRegistry $doctrine): Response
+    {
+
+        $data = json_decode(
+            $request->getContent(),
+            true
+        );
+        $userId = $request->get('userId');
+        $user = $doctrine->getRepository(User::class)->findOneBy([
+            'id' => $userId
+        ]);
+
+        if (!$user) {
+            throw new NotFoundHttpException('User does not exist!!!');
+        }
+
+        $reservation = $doctrine->getRepository(Reservation::class)->findOneBy([
+            'user' => $user,
+        ]);
+
+        $form = $this->createForm(ReservationType::class, $reservation, ['method' => $request->getMethod(),]);
+
+        $form->submit($data, false);
+
+        if (false === $form->isValid()) {
+
+
+            return $this->handleView($this->view(['status' => 'Not OK'], Response::HTTP_BAD_REQUEST));
+        }
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($reservation);
+        $entityManager->flush();
+        return $this->handleView($this->view(['status' => 'OK'], Response::HTTP_NO_CONTENT));
+    }
+
+
+    /**
      * @Route("/api/users/{userId}/reservation/{reservationId}", name="delete_reservation", methods={"DELETE"})
      */
     public function deleteOption(Request $request, ManagerRegistry $doctrine): Response
