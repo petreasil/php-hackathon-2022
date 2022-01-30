@@ -23,6 +23,12 @@ In this section, please describe the main entities you managed to identify, the 
 
 In this section, please provide a brief overview of the design of your application and highlight the main components and the interaction between them.
 
+The aplication pattern MVC:
+
+- Model - represents the object taht we use in our app. In backend case data that is send to the client
+- View - represents the interface that the user take contact. In our case the Routes for the client.
+- Controller - all the logic. In backend case is the part that handles generating data for the Routes.
+
 ### Implementation
 
 ##### Functionalities
@@ -33,7 +39,8 @@ For each of the following functionalities, please tick the box if you implemente
 [x] Create database \
 [x] Migrate Schema \
 [x] Add controler \
-[x] Add Routes
+[x] Add Routes \
+[x] Add Types
 
 ##### Business rules
 
@@ -66,8 +73,14 @@ Please fill in the following table with the technologies you used in order to wo
 In this section, please list the steps and/ or tools you've used in order to test the behaviour of your solution.
 
 - Postman for testing Routes
-  /api/users-get allusers
-  /api/user-post user
+- /api/users- GET all users
+- /api/user- POST user
+- /api/room - POST room/program
+- /api/rooms - GET all rooms/Program
+- /api/users/reservation - POST reservation for room/program
+- /api/users/{userId}/reservation - GET reservation for {userID}
+- /api/users/{userId}/reservation/{reservationId} - DELETE reservation
+- /api/users/update/{userId}/reservation -PATCH reserved room/program
 
 ## Feedback
 
